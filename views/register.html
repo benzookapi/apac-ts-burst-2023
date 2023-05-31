@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome to B2B registration</title>
+    <link rel="stylesheet" href="<%= app_url %>/styles.css" />
+    <style>
+        ._mandatory {
+            color: red;
+        }
+
+        ._my-center {
+            margin-left: 30%;
+            margin-right: 30%;
+        }
+
+        @media screen and (max-width: 480px) {
+            ._my-center {
+                margin-left: 1%;
+                margin-right: 5%;
+            }
+        }
+
+        ._my-middle {
+            width: 65%;
+        }
+
+        ._my-small {
+            width: 48%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="Polaris-LegacyStack Polaris-LegacyStack--vertical Polaris-Text--center" style="margin-top: 1%;">
+        <div class="Polaris-LegacyStack__Item">
+            
+        </div>
+        <div class="Polaris-LegacyStack__Item">
+            <h1 class="Polaris-Text--root Polaris-Text--heading4xl">B2B Membership</h1>
+        </div>
+        <% if (status !=null && status.type!=='success' ) { %>
+            <div class="Polaris-LegacyStack__Item">
+                <p class="Polaris-Text--center"><span class="_mandatory">*</span> are mandatory.</p>
+            </div>
+            <% } %>
+    </div>
+
+    <% if (status !=null) { %>
+        <div class="Polaris-Banner <% if (status.type === 'success') { %> Polaris-Banner--statusSuccess <% } else { %> Polaris-Banner--statusCritical <% } %> Polaris-Banner--hasDismiss Polaris-Banner--withinPage _my-center"
+            tabindex="0" role="status" aria-live="polite" style="margin-top: 2%; margin-bottom: 2%;">
+            <div class="Polaris-Banner__Dismiss">
+                <button class="Polaris-Button Polaris-Button--plain Polaris-Button--iconOnly"
+                    aria-label="Dismiss notification" type="button">
+                    <span class="Polaris-Button__Content">
+                        <span class="Polaris-Button__Icon">
+                            <span class="Polaris-Icon">
+                                <span class="Polaris-Text--root Polaris-Text--visuallyHidden">
+                                </span>
+                                <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
+                                    <path
+                                        d="M6.707 5.293a1 1 0 0 0-1.414 1.414l3.293 3.293-3.293 3.293a1 1 0 1 0 1.414 1.414l3.293-3.293 3.293 3.293a1 1 0 0 0 1.414-1.414l-3.293-3.293 3.293-3.293a1 1 0 0 0-1.414-1.414l-3.293 3.293-3.293-3.293Z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </span>
+                    </span>
+                </button>
+            </div>
+            <div class="Polaris-Box" style="--pc-box-padding-inline-end-xs:var(--p-space-4)">
+                <% if (status.type==='success' ) { %>
+                    <span class="Polaris-Icon Polaris-Icon--colorSuccess Polaris-Icon--applyColor">
+                        <span class="Polaris-Text--root Polaris-Text--visuallyHidden">
+                        </span>
+                        <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M0 10a10 10 0 1 0 20 0 10 10 0 0 0-20 0zm15.2-1.8a1 1 0 0 0-1.4-1.4l-4.8 4.8-2.3-2.3a1 1 0 0 0-1.4 1.4l3 3c.4.4 1 .4 1.4 0l5.5-5.5z">
+                            </path>
+                        </svg>
+                    </span>
+                    <% } %>
+                        <% if (status.type==='error' ) { %>
+                            <span class="Polaris-Icon Polaris-Icon--colorCritical Polaris-Icon--applyColor">
+                                <span class="Polaris-Text--root Polaris-Text--visuallyHidden">
+                                </span>
+                                <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
+                                    <path
+                                        d="M11.768.768a2.5 2.5 0 0 0-3.536 0l-7.464 7.464a2.5 2.5 0 0 0 0 3.536l7.464 7.464a2.5 2.5 0 0 0 3.536 0l7.464-7.464a2.5 2.5 0 0 0 0-3.536l-7.464-7.464zm-2.768 5.232a1 1 0 1 1 2 0v4a1 1 0 1 1-2 0v-4zm2 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <% } %>
+            </div>
+            <div class="Polaris-Banner__ContentWrapper">
+                <h2 class="Polaris-Text--root Polaris-Text--headingMd Polaris-Text--break">
+                    <%= status.msg %>
+                </h2>
+                <div class="Polaris-Box"
+                    style="--pc-box-padding-block-end-xs:var(--p-space-05);--pc-box-padding-block-start-xs:var(--p-space-05)">
+                    <div class="Polaris-Box" style="--pc-box-padding-block-start-xs:var(--p-space-4)">
+                        <% if (status.type==='success' ) { %>
+                            <div class="Polaris-ButtonGroup">
+                                <div class="Polaris-ButtonGroup__Item">
+                                    <div class="Polaris-Box" style="--pc-box-padding-inline-end-xs:var(--p-space-2)">
+                                        <button class="Polaris-Banner__Button Polaris-Banner__PrimaryAction"
+                                            type="button"
+                                            onclick="window.location.href='<%= logout_url %>';">変更を反映するためにログアウトする</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+            <% if (status==null || status.type==='error' ) { %>
+
+                <form method="GET" action="#">
+
+                    <div class="Polaris-FormLayout _my-center">
+
+                        
+                        <div class="Polaris-FormLayout__Item">
+                            <div class="">
+                                <div class="Polaris-Labelled__LabelWrapper">
+                                    <div class="Polaris-Label">
+                                        <label id="PolarisTextField2Label" for="PolarisTextField2"
+                                            class="Polaris-Label__Text">Email<span class="_mandatory">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Connected">
+                                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                        <div class="Polaris-TextField _my-middle">
+                                            <input name="email" autocomplete="email" class="Polaris-TextField__Input"
+                                                type="text" aria-labelledby="PolarisTextField2Label"
+                                                aria-invalid="false" value="<%= memberData.email %>" readonly>
+                                            <div class="Polaris-TextField__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                    <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                        <span>read only</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Polaris-FormLayout__Item">
+                            <div class="">
+                                <div class="Polaris-Labelled__LabelWrapper">
+                                    <div class="Polaris-Label">
+                                        <label id="PolarisTextField3Label" for="PolarisTextField1"
+                                            class="Polaris-Label__Text">Company<span class="_mandatory">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Connected">
+                                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                        <div class="Polaris-TextField">
+                                            <input name="companyName" autocomplete="off"
+                                                class="Polaris-TextField__Input" type="text"
+                                                aria-labelledby="PolarisTextField3Label" aria-invalid="false"
+                                                value="<%= memberData.companyName %>">
+                                            <div class="Polaris-TextField__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                    <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                        <span></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        
+                        <div role="group" class="Polaris-FormLayout--condensed">
+                            <div class="Polaris-FormLayout__Items">
+                                <div class="Polaris-FormLayout__Item">
+                                    <div class="">
+                                        <div class="Polaris-Labelled__LabelWrapper">
+                                            <div class="Polaris-Label">
+                                                <label id="PolarisTextField9Label" for="PolarisTextField1"
+                                                    class="Polaris-Label__Text">ZIP<span
+                                                        class="_mandatory">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Connected">
+                                            <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                                <div class="Polaris-TextField">
+                                                    <input name="zipCode" autocomplete="off"
+                                                        class="Polaris-TextField__Input" type="text"
+                                                        aria-labelledby="PolarisTextField9Label" aria-invalid="false"
+                                                        value="<%= memberData.zipCode %>">
+                                                    <div class="Polaris-TextField__Backdrop">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                            <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                                <span></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-FormLayout__Item">
+                                    <div class="">
+                                        <div class="Polaris-Labelled__LabelWrapper">
+                                            <div class="Polaris-Label">
+                                                <label id="PolarisSelect1Label" for="PolarisSelect1"
+                                                    class="Polaris-Label__Text">Province<span
+                                                        class="_mandatory">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Select">
+                                            <select name="prefecture" class="Polaris-Select__Input" aria-invalid="false"
+                                                onchange="selChange(this, 'prefecture_sel');">
+                                                <option value="" <% if (memberData.prefecture==='' ) { %>selected<% } %>
+                                                        >
+                                                </option>
+                                                <option value="北海道" <% if (memberData.prefecture==='北海道' ) { %>selected
+                                                    <% } %>>北海道
+                                                </option>
+                                                <option value="青森県" <% if (memberData.prefecture==='青森県' ) { %>selected
+                                                    <% } %>>青森県
+                                                </option>
+                                                <option value="岩手県" <% if (memberData.prefecture==='岩手県' ) { %>selected
+                                                    <% } %>>岩手県
+                                                </option>
+                                                <option value="宮城県" <% if (memberData.prefecture==='宮城県' ) { %>selected
+                                                    <% } %>>宮城県
+                                                </option>
+                                                <option value="秋田県" <% if (memberData.prefecture==='秋田県' ) { %>selected
+                                                    <% } %>>秋田県
+                                                </option>
+                                                <option value="山形県" <% if (memberData.prefecture==='山形県' ) { %>selected
+                                                    <% } %>>山形県
+                                                </option>
+                                                <option value="福島県" <% if (memberData.prefecture==='福島県' ) { %>selected
+                                                    <% } %>>福島県
+                                                </option>
+                                                <option value="茨城県" <% if (memberData.prefecture==='茨城県' ) { %>selected
+                                                    <% } %>>茨城県
+                                                </option>
+                                                <option value="栃木県" <% if (memberData.prefecture==='栃木県' ) { %>selected
+                                                    <% } %>>栃木県
+                                                </option>
+                                                <option value="群馬県" <% if (memberData.prefecture==='群馬県' ) { %>selected
+                                                    <% } %>>群馬県
+                                                </option>
+                                                <option value="埼玉県" <% if (memberData.prefecture==='埼玉県' ) { %>selected
+                                                    <% } %>>埼玉県
+                                                </option>
+                                                <option value="千葉県" <% if (memberData.prefecture==='千葉県' ) { %>selected
+                                                    <% } %>>千葉県
+                                                </option>
+                                                <option value="東京都" <% if (memberData.prefecture==='東京都' ) { %>selected
+                                                    <% } %>>東京都
+                                                </option>
+                                                <option value="神奈川県" <% if (memberData.prefecture==='神奈川県' ) { %>
+                                                    selected<% } %>
+                                                        >神奈川県</option>
+                                                <option value="新潟県" <% if (memberData.prefecture==='新潟県' ) { %>selected
+                                                    <% } %>>新潟県
+                                                </option>
+                                                <option value="富山県" <% if (memberData.prefecture==='富山県' ) { %>selected
+                                                    <% } %>>富山県
+                                                </option>
+                                                <option value="石川県" <% if (memberData.prefecture==='石川県' ) { %>selected
+                                                    <% } %>>石川県
+                                                </option>
+                                                <option value="福井県" <% if (memberData.prefecture==='福井県' ) { %>selected
+                                                    <% } %>>福井県
+                                                </option>
+                                                <option value="山梨県" <% if (memberData.prefecture==='山梨県' ) { %>selected
+                                                    <% } %>>山梨県
+                                                </option>
+                                                <option value="長野県" <% if (memberData.prefecture==='長野県' ) { %>selected
+                                                    <% } %>>長野県
+                                                </option>
+                                                <option value="岐阜県" <% if (memberData.prefecture==='岐阜県' ) { %>selected
+                                                    <% } %>>岐阜県
+                                                </option>
+                                                <option value="静岡県" <% if (memberData.prefecture==='静岡県' ) { %>selected
+                                                    <% } %>>静岡県
+                                                </option>
+                                                <option value="愛知県" <% if (memberData.prefecture==='愛知県' ) { %>selected
+                                                    <% } %>>愛知県
+                                                </option>
+                                                <option value="三重県" <% if (memberData.prefecture==='三重県' ) { %>selected
+                                                    <% } %>>三重県
+                                                </option>
+                                                <option value="滋賀県" <% if (memberData.prefecture==='滋賀県' ) { %>selected
+                                                    <% } %>>滋賀県
+                                                </option>
+                                                <option value="京都府" <% if (memberData.prefecture==='京都府' ) { %>selected
+                                                    <% } %>>京都府
+                                                </option>
+                                                <option value="大阪府" <% if (memberData.prefecture==='大阪府' ) { %>selected
+                                                    <% } %>>大阪府
+                                                </option>
+                                                <option value="兵庫県" <% if (memberData.prefecture==='兵庫県' ) { %>selected
+                                                    <% } %>>兵庫県
+                                                </option>
+                                                <option value="奈良県" <% if (memberData.prefecture==='奈良県' ) { %>selected
+                                                    <% } %>>奈良県
+                                                </option>
+                                                <option value="和歌山県" <% if (memberData.prefecture==='和歌山県' ) { %>
+                                                    selected<% } %>
+                                                        >和歌山県</option>
+                                                <option value="鳥取県" <% if (memberData.prefecture==='鳥取県' ) { %>selected
+                                                    <% } %>>鳥取県
+                                                </option>
+                                                <option value="島根県" <% if (memberData.prefecture==='島根県' ) { %>selected
+                                                    <% } %>>島根県
+                                                </option>
+                                                <option value="岡山県" <% if (memberData.prefecture==='岡山県' ) { %>selected
+                                                    <% } %>>岡山県
+                                                </option>
+                                                <option value="広島県" <% if (memberData.prefecture==='広島県' ) { %>selected
+                                                    <% } %>>広島県
+                                                </option>
+                                                <option value="山口県" <% if (memberData.prefecture==='山口県' ) { %>selected
+                                                    <% } %>>山口県
+                                                </option>
+                                                <option value="徳島県" <% if (memberData.prefecture==='徳島県' ) { %>selected
+                                                    <% } %>>徳島県
+                                                </option>
+                                                <option value="香川県" <% if (memberData.prefecture==='香川県' ) { %>selected
+                                                    <% } %>>香川県
+                                                </option>
+                                                <option value="愛媛県" <% if (memberData.prefecture==='愛媛県' ) { %>selected
+                                                    <% } %>>愛媛県
+                                                </option>
+                                                <option value="高知県" <% if (memberData.prefecture==='高知県' ) { %>selected
+                                                    <% } %>>高知県
+                                                </option>
+                                                <option value="福岡県" <% if (memberData.prefecture==='福岡県' ) { %>selected
+                                                    <% } %>>福岡県
+                                                </option>
+                                                <option value="佐賀県" <% if (memberData.prefecture==='佐賀県' ) { %>selected
+                                                    <% } %>>佐賀県
+                                                </option>
+                                                <option value="長崎県" <% if (memberData.prefecture==='長崎県' ) { %>selected
+                                                    <% } %>>長崎県
+                                                </option>
+                                                <option value="熊本県" <% if (memberData.prefecture==='熊本県' ) { %>selected
+                                                    <% } %>>熊本県
+                                                </option>
+                                                <option value="大分県" <% if (memberData.prefecture==='大分県' ) { %>selected
+                                                    <% } %>>大分県
+                                                </option>
+                                                <option value="宮崎県" <% if (memberData.prefecture==='宮崎県' ) { %>selected
+                                                    <% } %>>宮崎県
+                                                </option>
+                                                <option value="鹿児島県" <% if (memberData.prefecture==='鹿児島県' ) { %>
+                                                    selected<% } %>
+                                                        >鹿児島県</option>
+                                                <option value="沖縄県" <% if (memberData.prefecture==='沖縄県' ) { %>selected
+                                                    <% } %>>沖縄県
+                                                </option>
+                                            </select>
+                                            <div class="Polaris-Select__Content" aria-hidden="true">
+                                                <span class="Polaris-Select__SelectedOption" id="prefecture_sel">
+
+                                                </span>
+                                                <span class="Polaris-Select__Icon">
+                                                    <span class="Polaris-Icon">
+                                                        <span class="Polaris-Text--root Polaris-Text--visuallyHidden">
+                                                        </span>
+                                                        <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg"
+                                                            focusable="false" aria-hidden="true">
+                                                            <path
+                                                                d="M7.676 9h4.648c.563 0 .879-.603.53-1.014l-2.323-2.746a.708.708 0 0 0-1.062 0l-2.324 2.746c-.347.411-.032 1.014.531 1.014Zm4.648 2h-4.648c-.563 0-.878.603-.53 1.014l2.323 2.746c.27.32.792.32 1.062 0l2.323-2.746c.349-.411.033-1.014-.53-1.014Z">
+                                                            </path>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="Polaris-Select__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Polaris-FormLayout__Item">
+                            <div class="">
+                                <div class="Polaris-Labelled__LabelWrapper">
+                                    <div class="Polaris-Label">
+                                        <label id="PolarisTextField10Label" for="PolarisTextField3"
+                                            class="Polaris-Label__Text">City<span class="_mandatory">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Connected">
+                                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                        <div class="Polaris-TextField">
+                                            <input name="address1" autocomplete="off" class="Polaris-TextField__Input"
+                                                type="text" aria-labelledby="PolarisTextField10Label"
+                                                aria-invalid="false" value="<%= memberData.address1 %>">
+                                            <div class="Polaris-TextField__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                    <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                        <span></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Polaris-FormLayout__Item">
+                            <div class="">
+                                <div class="Polaris-Labelled__LabelWrapper">
+                                    <div class="Polaris-Label">
+                                        <label id="PolarisTextField11Label" for="PolarisTextField3"
+                                            class="Polaris-Label__Text">Address 1<span class="_mandatory">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Connected">
+                                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                        <div class="Polaris-TextField">
+                                            <input name="address2" autocomplete="off" class="Polaris-TextField__Input"
+                                                type="text" aria-labelledby="PolarisTextField11Label"
+                                                aria-invalid="false" value="<%= memberData.address2 %>">
+                                            <div class="Polaris-TextField__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                    <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                        <span></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Polaris-FormLayout__Item">
+                            <div class="">
+                                <div class="Polaris-Labelled__LabelWrapper">
+                                    <div class="Polaris-Label">
+                                        <label id="PolarisTextField13Label" for="PolarisTextField3"
+                                            class="Polaris-Label__Text">Address 2</label>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Connected">
+                                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                        <div class="Polaris-TextField">
+                                            <input name="address3" autocomplete="off" class="Polaris-TextField__Input"
+                                                type="text" aria-labelledby="PolarisTextField13Label"
+                                                aria-invalid="false" value="<%= memberData.address3 %>">
+                                            <div class="Polaris-TextField__Backdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                    <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                        <span></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div role="group" class="Polaris-FormLayout--condensed">
+                            <div class="Polaris-FormLayout__Items">
+                                <div class="Polaris-FormLayout__Item">
+                                    <div class="">
+                                        <div class="Polaris-Labelled__LabelWrapper">
+                                            <div class="Polaris-Label">
+                                                <label id="PolarisTextField15Label" for="PolarisTextField1"
+                                                    class="Polaris-Label__Text">First Name<span
+                                                        class="_mandatory">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Connected">
+                                            <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                                <div class="Polaris-TextField">
+                                                    <input name="clerkSei" autocomplete="off"
+                                                        class="Polaris-TextField__Input" type="text"
+                                                        aria-labelledby="PolarisTextField15Label" aria-invalid="false"
+                                                        value="<%= memberData.clerkSei %>">
+                                                    <div class="Polaris-TextField__Backdrop">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                            <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                                <span></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Polaris-FormLayout__Item">
+                                    <div class="">
+                                        <div class="Polaris-Labelled__LabelWrapper">
+                                            <div class="Polaris-Label">
+                                                <label id="PolarisTextField16Label" for="PolarisTextField2"
+                                                    class="Polaris-Label__Text">Last Name<span
+                                                        class="_mandatory">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Connected">
+                                            <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                                                <div class="Polaris-TextField">
+                                                    <input name="clerkMei" autocomplete="off"
+                                                        class="Polaris-TextField__Input" type="text"
+                                                        aria-labelledby="PolarisTextField16Label" aria-invalid="false"
+                                                        value="<%= memberData.clerkMei %>">
+                                                    <div class="Polaris-TextField__Backdrop">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Polaris-Labelled__HelpText" id="PolarisTextField1HelpText">
+                                            <span class="Polaris-Text--root Polaris-Text--break Polaris-Text--subdued">
+                                                <span></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+
+                       
+
+
+                       
+
+                        <div class="Polaris-FormLayout__Item" style="text-align: center;">
+                            <button class="Polaris-Button Polaris-Button--primary Polaris-Button--sizeLarge"
+                                type="submit">
+                                <span class="Polaris-Button__Content">
+                                    <span class="Polaris-Button__Text">Register B2B membership</span>
+                                </span>
+                            </button>
+                        </div>
+
+
+                        <div class="Polaris-FormLayout__Item" style="text-align: center;">
+                            <button class="Polaris-Button Polaris-Button--plain" type="button"
+                                onclick="window.location.href='<%= shop_url %>';">
+                                <span class="Polaris-Button__Content">
+                                    <span class="Polaris-Button__Text">Back to the store</span>
+                                </span>
+                            </button>
+                        </div>
+
+
+
+                    </div>
+
+                    <input type="hidden" name="action" value="submit" />
+
+                    <input type="hidden" name="frdKey" id="frdKey" value="" />
+
+                </form>
+
+                <% } %>
+
+                    
+                    <script>
+                        const selChange = function (obj, id) {
+                            const i = obj.selectedIndex;
+                            const text = obj.options[i].text;
+                            window.document.getElementById(id).innerHTML = text;
+                        };
+                        selChange(window.document.getElementsByName('prefecture')[0], 'prefecture_sel');
+                    </script>
+</body>
+
+</html>

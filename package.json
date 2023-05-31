@@ -1,0 +1,33 @@
+{
+  "name": "apac-ts-burst-2023",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "@shopify/app": "^3.44.1",
+    "@shopify/cli": "^3.44.1",
+    "jwt-decode": "^3.1.2",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-http-request": "^2.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^5.0.0",
+    "mysql": "^2.18.1",
+    "react": "^17.0.2",
+    "underscore": "^1.9.0"
+  },
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build && rm -rf ../public/assets && mv dist/assets ../public/assets && mv dist/index.html ../views/index.html",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "shopify": "shopify",
+    "dev": "shopify app dev",
+    "info": "shopify app info",
+    "generate": "shopify app generate",
+    "deploy": "shopify app deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": ""
+}

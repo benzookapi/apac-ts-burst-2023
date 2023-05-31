@@ -1,0 +1,76 @@
+<div class="Polaris-LegacyCard">
+  <div class="Polaris-CalloutCard__Container">
+    <div class="Polaris-LegacyCard__Section">
+      <div class="Polaris-CalloutCard">
+        <div class="Polaris-CalloutCard__Content">
+          <div class="Polaris-CalloutCard__Title">
+            <h2 class="Polaris-Text--root Polaris-Text--headingMd">B2B Membership</h2>
+          </div>
+          <div class="Polaris-TextContainer">
+            <p id="paid_message_embed">Loading...</p>
+          </div>
+          <div class="Polaris-CalloutCard__Buttons">
+            <a class="Polaris-Button" href="#" data-polaris-unstyled="true" id="paid_action_button_embed">
+              <span class="Polaris-Button__Content">
+                <span class="Polaris-Button__Text" id="paid_action_cap_embed">                  
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="Polaris-Spinner Polaris-Spinner--sizeSmall">
+                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.229 1.173a9.25 9.25 0 1011.655 11.412 1.25 1.25 0 10-2.4-.698 6.75 6.75 0 11-8.506-8.329 1.25 1.25 0 10-.75-2.385z">
+                      </path>
+                    </svg>
+                  </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  fetch('{{ shop.url }}/apps/paid', {
+    method: 'GET'
+  }).then((res) => {
+    res.json().then((json)=>{
+      console.log(`${JSON.stringify(json)}`);
+      let array = '';
+      if (json.array.length > 0) {        
+        array = json.array.reduce((r,c) => {
+          return `${r}<li>${c}</li>`;
+        }, '');
+      }
+      const msg = `<p>${json.message}</p><p><ul>${array}</ul></p>`;
+      console.log(`msg: ${msg}`);
+      window.document.getElementById('paid_message_embed').innerHTML = msg;
+      let href = '';
+      let cap = '';
+      switch (json.action) {
+        case 'login':
+          href = '{{ routes.account_login_url }}';
+          cap = 'Login store';
+          break;
+        case 'register':
+          if (json.array.length == 0) {
+            href = '{{ shop.url }}/apps/b2b?action=register';
+            cap = 'Register your B2B membership';
+          }
+          break;
+        default:
+          break;
+      }
+      if (href !== '' && cap !== '') {
+        window.document.getElementById('paid_action_button_embed').href = href;
+        window.document.getElementById('paid_action_cap_embed').innerHTML = cap;
+      } else {
+        window.document.getElementById('paid_action_button_embed').style.visibility = "hidden";
+      }      
+    });
+  }).catch((e)=>{
+    console.log(`${e}`);
+  });
+</script>
